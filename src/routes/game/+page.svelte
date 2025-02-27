@@ -89,6 +89,17 @@
       Math.max(cameraMaxY, 0)
     )
   }
+
+
+  /** @param {number} len */
+  const createList = (len) => {
+    /** @type {number[]} */
+    let array = [];
+    for (let i = 0; i < len; i++) {
+      array.push(i);
+    }
+    return array;
+  }
 </script>
 
 <div role="button" aria-label="Click to interact" tabindex="0"
@@ -99,8 +110,14 @@
   on:wheel={handleScroll} 
   class="relative w-full h-screen bg-slate-700 overflow-hidden">
   <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-    <div class="bg-grid bg-slate-600"
+    <div class="bg-grid relative bg-slate-600"
       style="scale: {zoom}; translate: {-cameraX}px {-cameraY}px; width: {columns*TILE_SIZE}px; height: {rows*TILE_SIZE}px; background-size: {TILE_SIZE}px {TILE_SIZE}px">
+      {#each createList(1000) as i}
+        <div style="width: {TILE_SIZE -2}px; height: {TILE_SIZE -2}px; top: {TILE_SIZE * i}px; left: {TILE_SIZE * i}px;" class="absolute bg-orange-600 z-50"
+          on:click={() => console.log(i)}
+        >
+        </div>
+      {/each}
     </div>
   </div>
 </div>
